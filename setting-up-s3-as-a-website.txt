@@ -1,0 +1,33 @@
+Note: this setup requires an AWS Cloud9 IDE to be set up.
+
+1. Create the bucket
+aws s3 mb s3://REPLACE_ME_BUCKET_NAME
+
+2. Configure bucket to be a website
+aws s3 website s3://REPLACE_ME_BUCKET_NAME --index-document index.html
+
+3. Configure bucket to be publicly available
+aws s3api put-bucket-policy --bucket REPLACE_ME_BUCKET_NAME --policy file://REPLACE_WITH_FILE_PATH
+
+file contents (named website-bucket-policy.json):
+{
+  "Id": "MyPolicy",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadForGetBucketObjects",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::mythical-mysfits-static-content/*"
+    }
+  ]
+}
+
+
+4. Add something to the bucket
+ aws s3 cp REPLACE_WITH_PATH_TO_FILE s3://REPLACE_ME_BUCKET_NAME/index.html 
+
+
+5. Access the bucket
+http://REPLACE_ME_BUCKET_NAME.s3-website-REPLACE_ME_YOUR_REGION.amazonaws.com  (region = us-west-2 or us-east-1)
