@@ -7,7 +7,7 @@ aws s3 mb s3://REPLACE_ME_BUCKET_NAME
 aws s3 website s3://REPLACE_ME_BUCKET_NAME --index-document index.html
 
 3. Configure bucket to be publicly available
-aws s3api put-bucket-policy --bucket REPLACE_ME_BUCKET_NAME --policy file://REPLACE_WITH_FILE_PATH
+aws s3api put-bucket-policy --bucket REPLACE_ME_BUCKET_NAME --policy file://~/environment/REPLACE_WITH_FILE_PATH
 
 file contents (named website-bucket-policy.json):
 {
@@ -19,14 +19,14 @@ file contents (named website-bucket-policy.json):
       "Effect": "Allow",
       "Principal": "*",
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::mythical-mysfits-static-content/*"
+      "Resource": "arn:aws:s3:::BUCKET_NAME_HERE/*"
     }
   ]
 }
 
 
 4. Add something to the bucket
- aws s3 cp REPLACE_WITH_PATH_TO_FILE s3://REPLACE_ME_BUCKET_NAME/index.html 
+ aws s3 cp ~/environment/REPLACE_WITH_PATH_TO_FILE s3://REPLACE_ME_BUCKET_NAME/index.html 
 
 
 5. Access the bucket
