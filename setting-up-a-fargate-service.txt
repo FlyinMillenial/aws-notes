@@ -1,0 +1,30 @@
+Step by step: https://github.com/aws-samples/aws-modern-application-workshop/tree/java/module-2
+
+Very long story short, we do four things:
+
+1. Set up VPC infrastructure to hold our containers
+    - VPC
+    - Subnets
+    - Cluster
+
+2. Register a docker container (our app) with ECR to be copied into our infrastructure later
+    - Provision our IDE environment with the right tools to build our app and container
+    - Build the thing
+    - Register with ECR
+
+3. Set up a NLB to route traffic to containers on our infrastructure
+    - Create an NLB
+    - Create a Target Group
+    - Create a listener to take traffic hitting a specific NLB port and send it to our docker containers tagged with the Target Group
+
+4. Set up an ECS service to create and tag our containers and provision our infrastructure with them
+    - Create a Task that defines how our containers should be run
+    - Create a service that defines:
+        - WHAT container to create (via the task definition)
+        - WHERE to create the container (our infrastructure)
+        - WHO is going to be looking for it (via our NLB and Target Group)
+
+...so at the end of the day our infrastructure HOSTS our containers, our ECS service PROVISIONS our infrastructure with our containers, 
+and NLB ROUTES TRAFFIC to our infrastructure.
+
+Fargate's job is to handle the creation of EC2 instances on our cluster to run our containers.  That's a lot of work and we don't want to do it.
